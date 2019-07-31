@@ -1,0 +1,20 @@
+{% extends "blog/base.html" %}
+
+{% block title %}Mój blog{% endblock %}
+
+{% block content %}
+	<h1>Mój blog</h1>
+	{% for post in posts %}
+		<!-- Tytuł posta jest łączem w postaci kanonicznego adresu URL posta. -->
+		<h2>
+			<a href="{{ post.get_absolute_url }}">
+				{{ post.title }}
+			</a>
+		</h2>
+		<p class="date">
+			Opublikowany {{ post.publish }} przez {{ post.author }}
+		</p>
+		{{ post.body|truncatewords:30|linebreaks }}
+<!-- 		W treści posta stosowane są dwa filtry szablonu. Pierwszy, truncatewords , powoduje ograniczenie treści do podanej liczby słów. Natomiast drugi, linebreaks, konwertuje dane wyjściowe na postać kodu HTML wraz z odpowiednimi znakami nowego wiersza. Istnieje możliwość wykorzystania dowolnej liczby filtrów szablonu, a każdy z nich będzie zastosowany względem danych wyjściowych wygenerowanych przez poprzedni. -->
+	{% endfor %}
+{% endblock %}

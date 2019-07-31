@@ -16,6 +16,8 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
+# from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 
 class PublishedManager(models.Manager):
@@ -105,3 +107,20 @@ class Post(models.Model):
 
 	objects = models.Manager() # Manager domyślny
 	published = PublishedManager() # Manager niestandardowy
+
+
+	def get_absolute_url(self):
+		return reverse('blog:post_detail',
+						args = [self.publish.year,
+						self.publish.strftime('%m'),
+						self.publish.strftime('%d'),
+						self.slug])
+	# Kanoniczne adresy URL dla modeli
+	# Przygotowany wcześniej wzorzec adresu URL dla widoku post_detail możemy wykorzystać
+	# do budowy kanonicznych adresów URL dla obiektów Post . Konwencja stosowana w Django
+	# polega na dodaniu metody get_absolute_url() do modelu zwracającego kanoniczny adres
+	# URL obiektu. W przypadku wymienionej metody wykorzystamy metodę reverse() pozwalającą
+	# na utworzenie adresu URL na podstawie nazwy i przekazanie parametrów opcjonalnych.
+	# Przeprowadź edycję pliku models.py i umieść w nim wiersze, które w poniższym fragmencie
+	# kodu zostały pogrubione.
+	# Metodę get_absolute_url() będziemy wykorzystywać w naszych szablonach.
