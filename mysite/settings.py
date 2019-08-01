@@ -187,3 +187,31 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+
+# - - - - - - - - - - - - - - - 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Ustawienia email np do udostepniania postow:
+
+#  EMAIL_HOST - Nazwa hosta serwera SMTP, wartością domyślną jest localhost .
+#  EMAIL_PORT - Numer portu w serwerze SMTP, wartością domyślną jest 25 .
+#  EMAIL_HOST_USER - Nazwa użytkownika serwera SMTP.
+#  EMAIL_HOST_PASSWORD - Hasło użytkownika serwera SMTP.
+#  EMAIL_USE_TLS - Opcja wskazuje, czy będzie używane bezpieczne połączenie TLS.
+#  EMAIL_USE_SSL - Opcja wskazuje, czy niejawnie będzie używane bezpieczne
+#                 połączenie SSL.
+
+# Jeśli nie możesz użyć serwera SMTP, możesz skonfigurować Django w taki sposób, aby pisał wia-
+# domości e-mail na konsoli. W tym celu należy dodać do pliku settings.py następujące ustawienie.
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# przykładowa konfiguracja wysyłania wiadomości e-mail za pomocą serwerów Gmail i konta
+# użytkownika w Google:
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_HOST_USER = 'twoja_nazwa_użytkownika@gmail.com'
+# EMAIL_HOST_PASSWORD = 'twoje_hasło'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# - - - - - - - - - - - - - - - 
