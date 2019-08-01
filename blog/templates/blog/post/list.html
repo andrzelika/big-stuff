@@ -17,4 +17,7 @@
 		{{ post.body|truncatewords:30|linebreaks }}
 <!-- 		W treści posta stosowane są dwa filtry szablonu. Pierwszy, truncatewords , powoduje ograniczenie treści do podanej liczby słów. Natomiast drugi, linebreaks, konwertuje dane wyjściowe na postać kodu HTML wraz z odpowiednimi znakami nowego wiersza. Istnieje możliwość wykorzystania dowolnej liczby filtrów szablonu, a każdy z nich będzie zastosowany względem danych wyjściowych wygenerowanych przez poprzedni. -->
 	{% endfor %}
+	
+	{% include "pagination.html" with page=posts %}
+
 {% endblock %}
