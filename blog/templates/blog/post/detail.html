@@ -14,4 +14,36 @@
 			Udostępnij post
 		</a>
 	</p>
+
+	{% with comments.count as total_comments %}
+		<h2>
+			{{ total_comments }} komentarz{{ total_comments|pluralize:"y" }}
+			<!-- 			Działanie filtru szablonu o nazwie pluralize polega na wyświetleniu y, jeśli wartość jest inna niż 1 . Dlatego też poprzedzający filtr tekst zostanie wyświetlony w postaci 0 komentarzy, 1 komentarz, N komentarzy. -->
+		</h2>
+	{% endwith %}
+	<!-- 	Znacznik <nawias klamrowy>% with %<nawias klamrowy> szablonu okazuje się użyteczny, gdy chcemy uniknąć wykonania zapytania do bazy danych lub wielokrotnego uzyskania dostępu do kosztownych metod. -->
+
+	{% for comment in comments %}
+		<div class="comment">
+			<p class="info">
+				Komentarz {{ forloop.counter }} dodany przez {{ comment.name }}
+				{{ comment.created }}
+			</p>
+			{{ comment.body|linebreaks }}
+		</div>
+	{% empty %}
+		<p>Nie ma jeszcze żadnych komentarzy.</p>
+	{% endfor %}
+
+	{% if new_Comment %}
+		<h2>Twój komentarz został dodany.</h2>
+	{% else %}
+		<h2>Dodaj nowy komentarz</h2>
+		<form action="." method="post">
+			{{ comment_form.as_p }}
+			{% csrf_token %}
+			<p><input type="submit" value="Dodaj komentarz"></p>
+		</form>
+	{% endif %}
+
 {% endblock %}

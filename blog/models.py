@@ -124,3 +124,39 @@ class Post(models.Model):
 	# Przeprowadź edycję pliku models.py i umieść w nim wiersze, które w poniższym fragmencie
 	# kodu zostały pogrubione.
 	# Metodę get_absolute_url() będziemy wykorzystywać w naszych szablonach.
+
+
+class Comment(models.Model):
+	post = models.ForeignKey(Post,
+							 on_delete = models.CASCADE,
+							 related_name = 'comments')
+	# Jest to nasz model Comment . Zawiera klucz zewnętrzny ( ForeignKey ) służący 
+	# do połączenia komentarza z odpowiednim postem. W modelu została zdefiniowana 
+	# relacja typu „wiele do jednego”, ponieważ każdy komentarz jest przeznaczony 
+	# dla jednego konkretnego posta, a sam post może mieć wiele komentarzy. 
+	# Atrybut related_name umożliwia nadanie nazwy atrybutowi, którego używamy 
+	# do obsługi związku między dwoma obiektami. Po zdefiniowaniu wymienionych
+	# aspektów możemy za pomocą comment.post() pobrać obiekt komentarza lub też 
+	# użyć post.comments.all() do pobrania wszystkich komentarzy dla danego posta. 
+	# Jeśli nie zdefiniujesz atrybutu related_name , Django użyje zapisanej małymi 
+	# literami nazwy modelu wraz z przyrostkiem _set (w omawianym przykładzie to 
+	# będzie comment_set ) jako menedżera obiektu powiązanego z bieżącym.
+
+	# Więcej informacji na temat relacji typu „wiele do jednego” znajdziesz na 
+	# stronie https://docs.djangoproject.com/en/2.0/topics/db/examples/many_to_one/.
+
+	name = models.CharField(max_length = 80)
+	email = models.EmailField()
+	body = models.TextField()
+	created = models.DateTimeField(auto_now_add = True)
+	updated = models.DateTimeField(auto_now = True)
+	active = models.BooleanField(default = True)
+	# Zdecydowaliśmy się na dołączenie boolowskiego pola active pozwalającego 
+	# na ręczne ukrycie nieodpowiedniego komentarza.
+
+	class Meta:
+		ordering = ('created',)
+
+		def __str__(self):
+			return 'Komentarz dodany przez {} dla posta {}'.format(self.name, self.post)
+

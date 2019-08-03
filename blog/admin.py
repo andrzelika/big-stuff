@@ -5,7 +5,7 @@ from django.contrib import admin
 # opcjonalne.
 
 # Register your models here.
-from .models import Post
+from .models import Post, Comment
 # admin.site.register(Post)
 
 @admin.register(Post)
@@ -34,4 +34,10 @@ class PostAdmin(admin.ModelAdmin):
     # chii dat: zdefiniowaliśmy ją za pomocą atrybutu date_hierarchy .
 
 	ordering = ('status', 'publish')
-	# posty są domyślnie posortowane według kolumn Status i Publish.
+
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+	list_display = ('name', 'email', 'post', 'created', 'active')
+	list_filter = ('active', 'created', 'updated')
+	search_fields = ('name', 'email', 'body')
