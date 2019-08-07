@@ -68,6 +68,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog.apps.BlogConfig',
+    'taggit',
 ]
 # INSTALLED_APPS to ustawienie, które trzeba wyedytować dla wszystkich projektów.
 # Informuje ono Django o tym, które aplikacje są aktywne dla tej witryny. Domyślnie

@@ -7,8 +7,34 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView
 from .forms import EmailPostForm, CommentForm
 from django.core.mail import send_mail
+from taggit.models import Tag
 
 # Create your views here.
+
+def post_list(request, tag_slug=None):
+	object_list = Post.published.all()
+	tag = None
+
+	if tag_slug:
+		tag = get_object_or_404(Tag, slug=tag_slug)
+		object_list = object_list.filter(tags__in=[tag])
+
+	paginator = Paginator(object_list, 3) # Trzy posty na każdej stronie.
+	page = request.GET.get('page')
+
+	try:
+		posts = paginator.page(page)
+	except PageNotAnInteger:
+		# Jeżeli zmienna page nie jest liczbą całkowitą, wówczas pobierana jest pierwsza strona wyników.
+		posts = paginator.page(1)
+	except EmptyPage:
+		# Jeżeli zmienna page ma wartość większą niż numer ostatniej strony wyników, wtedy pobierana
+		# jest ostatnia strona wyników.
+		posts = paginator.page(paginator.num_pages)
+
+	return render(request, 'blog/post/list.html', {'page': page,
+												   'posts': posts,
+												   'tag': tag})
 
 class PostListView(ListView):
 	queryset = Post.published.all()

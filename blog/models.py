@@ -18,6 +18,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 # from django.core.urlresolvers import reverse
 from django.urls import reverse
+from taggit.managers import TaggableManager
 
 
 class PublishedManager(models.Manager):
@@ -124,6 +125,8 @@ class Post(models.Model):
 	# Przeprowadź edycję pliku models.py i umieść w nim wiersze, które w poniższym fragmencie
 	# kodu zostały pogrubione.
 	# Metodę get_absolute_url() będziemy wykorzystywać w naszych szablonach.
+
+	tags = TaggableManager()
 
 
 class Comment(models.Model):
