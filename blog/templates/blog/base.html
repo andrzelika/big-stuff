@@ -1,15 +1,15 @@
-<!-- 
+{% comment %}
 Django'wy język szablonów działanie opiera na:
 	- Znacznikach szablonów - kontrolują renderowanie szablonu i mają postać 
-		<nawias klamrowy>% znacznik %<nawias klamrowy>
+		{% znacznik %}
 	- Zmiennych szablonu - Podczas renderowania zmienne szablonu są zastępowane wartościami. Wyglądają następująco: 
-		<nawias klamrowy><nawias klamrowy> zmienna <nawias klamrowy><nawias klamrowy>
+		{{ zmienna }}
 	- Filtrach szablonów - pozwalają modyfikować zmienne do wyświetlania, np. 
-		<nawias klamrowy><nawias klamrowy> zmienna|filtr <nawias klamrowy><nawias klamrowy>
+		{{ zmienna|filtr }}
 
 Wszystkie wbudowane znaczniki szablonów i filtry: 
 	https://docs.djangoproject.com/en/2.0/ref/templates/builtins/. 
--->
+{% endcomment %}
 
 {% load static %}
 <!DOCTYPE html>

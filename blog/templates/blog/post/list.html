@@ -10,7 +10,10 @@
 	{% endif %}
 
 	{% for post in posts %}
-		<!-- Tytuł posta jest łączem w postaci kanonicznego adresu URL posta. -->
+
+		{% comment %}
+			Tytuł posta jest łączem w postaci kanonicznego adresu URL posta.
+		{% endcomment %}
 		<h2>
 			<a href="{{ post.get_absolute_url }}">
 				{{ post.title }}
@@ -33,7 +36,9 @@
 			Opublikowany {{ post.publish }} przez {{ post.author }}
 		</p>
 		{{ post.body|truncatewords:30|linebreaks }}
-<!-- 		W treści posta stosowane są dwa filtry szablonu. Pierwszy, truncatewords , powoduje ograniczenie treści do podanej liczby słów. Natomiast drugi, linebreaks, konwertuje dane wyjściowe na postać kodu HTML wraz z odpowiednimi znakami nowego wiersza. Istnieje możliwość wykorzystania dowolnej liczby filtrów szablonu, a każdy z nich będzie zastosowany względem danych wyjściowych wygenerowanych przez poprzedni. -->
+		{% comment %}
+			W treści posta stosowane są dwa filtry szablonu. Pierwszy, truncatewords , powoduje ograniczenie treści do podanej liczby słów. Natomiast drugi, linebreaks, konwertuje dane wyjściowe na postać kodu HTML wraz z odpowiednimi znakami nowego wiersza. Istnieje możliwość wykorzystania dowolnej liczby filtrów szablonu, a każdy z nich będzie zastosowany względem danych wyjściowych wygenerowanych przez poprzedni.
+		{% endcomment %}
 	{% endfor %}
 	
 	{% include "pagination.html" with page=posts %}
